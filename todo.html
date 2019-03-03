@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>todoForBI</title>
+    <style>
+        .done-true {
+            color: grey;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body ng-controller="myController">
+    <h2 class="display-4">Список действий</h2>
+    <div class="form-group">
+        <div class="form-inline">
+            <input class="form-control" ng-model="inputText"
+                   placeholder="Что нужно сделать"
+                   ng-keyup="$event.keyCode === 13 && addItem()">
+            <button class="btn btn-primary" ng-click="addItem()">{{ editMode ? 'Корректировка' : 'Добавить' }}</button>
+        </div>
+    </div>
+    <ul>
+        <li class="done-{{ item.checked }}"
+            ng-repeat="item in list"
+            ng-dblclick="changeItem(item)">
+            <div class="input-group mb-3">
+                <input class="form-check-input"
+                       type="checkbox"
+                       ng-model="item.checked">
+                <label class="col-md-8" ng-dblclick="changeItem(item)">{{item.todo}}</label>
+                <button class="col-md-2" type="button" class="btn btn-outline-info" ng-click="removeItem($index)">Удалить</button>
+            </div>
+        </li>
+    </ul>
+    <div class="form-group">
+        <button class="btn btn-secondary" ng-click="clearAll()">Очистить весь список</button>
+        <button class="btn btn-secondary" ng-click="clearDone()">Очистить сделанное</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.7/angular.min.js"></script>
+    <script src="todo.js"></script>
+</body>
+</html>
